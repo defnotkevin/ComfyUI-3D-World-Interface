@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {mergeAssets} from '../ui/asset_updates.mjs';
+const o={id:'a',source:'asset_1',asset:'old',name:'Custom',position:[2,3,4],rotation:[0,1,0],scale:[2,2,2],visible:false};
+const scene={objects:[o,{...o,id:'duplicate'}],camera:{position:[1,2,3]}};
+const result=mergeAssets(scene,[{source:'asset_1',asset:'new',name:'Generated'}],()=> 'newid');
+assert(result.changed);assert(result.state.objects.every(x=>x.asset==='new'&&x.name==='Custom'&&x.rotation[1]===1&&!x.visible));assert.equal(scene.objects[0].asset,'old');
+assert(!mergeAssets(result.state,[{source:'asset_1',asset:'new'}],()=> '').changed);
+assert.equal(mergeAssets(scene,[],()=> '').state.objects.length,2);
+assert.equal(mergeAssets({objects:[]},[{source:'asset_2',asset:'new'}],()=> 'newid').state.objects.length,1);
+assert.equal(mergeAssets({objects:[]},[{source:'asset_1',asset:'new'}],()=> '',['asset_1']).state.objects.length,0);
+console.log('PASS: automatic replacement, duplicate instances, transform/name preservation, unchanged inputs, disconnected assets, new slots, draft deletions.');

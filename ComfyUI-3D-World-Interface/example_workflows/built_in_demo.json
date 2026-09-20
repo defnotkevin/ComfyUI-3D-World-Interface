@@ -1,0 +1,235 @@
+{
+  "last_node_id": 5,
+  "last_link_id": 4,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "DemoWorldAsset",
+      "pos": [
+        60,
+        80
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "WORLD_ASSET",
+          "type": "WORLD_ASSET",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DemoWorldAsset"
+      },
+      "widgets_values": [
+        "Terrace"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "DemoWorldAsset",
+      "pos": [
+        60,
+        270
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "WORLD_ASSET",
+          "type": "WORLD_ASSET",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DemoWorldAsset"
+      },
+      "widgets_values": [
+        "Pavilion"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "DemoWorldAsset",
+      "pos": [
+        60,
+        460
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "WORLD_ASSET",
+          "type": "WORLD_ASSET",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DemoWorldAsset"
+      },
+      "widgets_values": [
+        "Textured block"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "DemoWorldAsset",
+      "pos": [
+        60,
+        650
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "WORLD_ASSET",
+          "type": "WORLD_ASSET",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DemoWorldAsset"
+      },
+      "widgets_values": [
+        "Column"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "WorldViewer",
+      "pos": [
+        470,
+        100
+      ],
+      "size": [
+        460,
+        500
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "asset_1",
+          "type": "WORLD_ASSET",
+          "link": 1
+        },
+        {
+          "name": "asset_2",
+          "type": "WORLD_ASSET",
+          "link": 2
+        },
+        {
+          "name": "asset_3",
+          "type": "WORLD_ASSET",
+          "link": 3
+        },
+        {
+          "name": "asset_4",
+          "type": "WORLD_ASSET",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "scene",
+          "type": "WORLD_SCENE",
+          "links": null
+        },
+        {
+          "name": "glb_path",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "WorldViewer"
+      },
+      "widgets_values": [
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      5,
+      0,
+      "WORLD_ASSET"
+    ],
+    [
+      2,
+      2,
+      0,
+      5,
+      1,
+      "WORLD_ASSET"
+    ],
+    [
+      3,
+      3,
+      0,
+      5,
+      2,
+      "WORLD_ASSET"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      3,
+      "WORLD_ASSET"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1,
+      "offset": [
+        0,
+        0
+      ]
+    }
+  },
+  "version": 0.4
+}
