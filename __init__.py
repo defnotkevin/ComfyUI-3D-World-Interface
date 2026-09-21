@@ -46,6 +46,15 @@ class MeshToWorldAsset:
         if data is None:raise ValueError('Mesh is empty.')
         return ({'asset':store().asset(data),'name':name},)
 
+def normalize_revision(value):
+    import re
+    if not isinstance(value, str):
+        raise ValueError('World Interface scene_revision must be text.')
+    value=value.strip().lower()
+    if value and not re.fullmatch(r'[0-9a-f]{64}',value):
+        raise ValueError('World Interface scene_revision is malformed. It must be blank for a new scene or the complete 64-character saved revision ID. Reopen the last saved workflow to recover the ID. Do not paste a filename or truncated ID. Clear it only if you intend to start a new layout; saved scene files will not be deleted.')
+    return value
+
 class WorldViewer:
     @classmethod
     def INPUT_TYPES(cls):
@@ -56,7 +65,16 @@ class WorldViewer:
     FUNCTION='view'
     CATEGORY='3d/world interface'
     OUTPUT_NODE=True
+    @classmethod
+    def VALIDATE_INPUTS(cls, scene_revision):
+        try:
+            normalize_revision(scene_revision)
+            return True
+        except ValueError as error:
+            return str(error)
+
     def view(self,scene_revision='',**kwargs):
+        scene_revision=normalize_revision(scene_revision)
         s=store();incoming=[]
         for i in range(1,5):
             v=kwargs.get(f'asset_{i}')

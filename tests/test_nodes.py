@@ -25,6 +25,14 @@ class NodeTests(unittest.TestCase):
             if value is None:sys.modules.pop(name,None)
             else:sys.modules[name]=value
         sys.modules.pop('world_test_package.storage',None);self.tmp.cleanup()
+    def test_revision_whitespace_and_case(self):
+        self.assertEqual(self.m.normalize_revision('  '+ 'AB'*32 +'\n'), 'ab'*32)
+        self.assertEqual(self.m.normalize_revision('  '), '')
+    def test_invalid_revision_is_rejected_before_execution(self):
+        for value in ['None', 'saved.glb', 'abc...', '../scene', 123]:
+            self.assertIsInstance(self.m.WorldViewer.VALIDATE_INPUTS(value), str)
+        self.assertIs(self.m.WorldViewer.VALIDATE_INPUTS(''), True)
+
     def test_four_optional_slots(self):
         self.assertEqual(list(self.m.WorldViewer.INPUT_TYPES()['optional']),['asset_1','asset_2','asset_3','asset_4'])
     def test_initial_then_committed_scene(self):
