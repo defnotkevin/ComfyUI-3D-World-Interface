@@ -47,6 +47,21 @@ class NodeTests(unittest.TestCase):
             asset=self.m.DemoWorldAsset().load(name)[0]
             self.assertTrue(self.m.store().asset_path(asset['asset']).is_file())
             self.assertEqual(asset['name'],name)
+    def test_file_demo_without_input_copies(self):
+        choices=self.m.LoadWorldAsset.INPUT_TYPES()['required']['file'][0]
+        for name in self.m.DEMO_FILES:
+            self.assertIn(name,choices)
+            asset=self.m.LoadWorldAsset().load(name,'Demo')[0]
+            self.assertTrue(self.m.store().asset_path(asset['asset']).is_file())
+        self.assertEqual(list((self.root/'input').iterdir()),[])
+
+    def test_user_demo_file_takes_precedence(self):
+        name='world_viewer_demo/demo_1.glb'
+        path=self.root/'input'/name
+        path.parent.mkdir()
+        path.write_bytes(glb())
+        self.assertEqual(self.m.input_file(name),path.resolve())
+
     def test_no_assets(self):
         with self.assertRaises(ValueError):self.m.WorldViewer().view()
     def test_input_path_escape(self):

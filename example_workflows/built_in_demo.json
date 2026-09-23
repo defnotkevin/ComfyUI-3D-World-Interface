@@ -1,5 +1,5 @@
 {
-  "last_node_id": 5,
+  "last_node_id": 6,
   "last_link_id": 4,
   "nodes": [
     {
@@ -184,6 +184,30 @@
       "widgets_values": [
         ""
       ]
+    },
+    {
+      "id": 6,
+      "type": "MarkdownNote",
+      "pos": [
+        -720,
+        0
+      ],
+      "size": [
+        680,
+        460
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Workflow Quick Guide",
+      "properties": {},
+      "widgets_values": [
+        "## Quick guide\n\nTry the four bundled sample assets. No file copying or model downloads are needed.\n\nRun the workflow first to see the initial scene and input changes. Click **Edit in Interface** to arrange objects, then **Save Work** and save your workflow. **Export GLB** downloads the scene.\n\nNo additional nodes or AI models are required for this demo.\n\nURLs are shown as plain text for your security, so you can inspect the full address before opening it.\n\n**3D World Interface nodes and setup**\n```text\nhttps://github.com/defnotkevin/ComfyUI-3D-World-Interface\n```"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [

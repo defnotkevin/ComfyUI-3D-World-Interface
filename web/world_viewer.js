@@ -14,7 +14,6 @@ app.registerExtension({
    const frame=document.createElement('iframe');frame.title='3D World Interface preview';frame.style.cssText='border:0;flex:1;width:100%;min-height:260px;';
    frame.src=api.apiURL('/worldviewer/ui/index.html?v=0.1.4');
    const caption=document.createElement('div');caption.textContent='Connect 1–4 assets and run the workflow.';caption.style.cssText='color:#abc0c8;font:11px system-ui;padding:8px;';host.append(frame,caption);
-   this.addDOMWidget('world_preview','div',host,{serialize:false,hideOnZoom:false});
    let payload=null,overlay=null,editFrame=null,previewReady=false;
    // Workflow properties may be reactive proxies after ComfyUI restores them.
    // Send plain JSON, never framework-owned objects, across the iframe boundary.
@@ -25,12 +24,13 @@ app.registerExtension({
    // Each document load must receive the current scene again.
    frame.addEventListener('load',()=>{previewReady=true;initialize(frame);});
    const close=()=>{overlay?.remove();overlay=null;editFrame=null;};
-   this.addWidget('button','Edit',null,()=>{
+   this.addWidget('button','Edit in Interface',null,()=>{
     if(!payload){caption.textContent='Run the workflow once to load assets before editing.';return;}
     if(overlay)return;
     overlay=document.createElement('div');overlay.style.cssText='position:fixed;inset:16px;z-index:100000;background:#172127;border:1px solid #596b73;border-radius:12px;box-shadow:0 0 0 30px #0009,0 20px 80px #0009;overflow:hidden;';
     editFrame=document.createElement('iframe');editFrame.title='3D World Interface editor';editFrame.style.cssText='border:0;width:100%;height:100%;';editFrame.src=api.apiURL('/worldviewer/ui/index.html?v=0.1.4');overlay.append(editFrame);document.body.append(overlay);
    });
+   this.addDOMWidget('world_preview','div',host,{serialize:false,hideOnZoom:false});
    const listener=e=>{
     if(e.origin!==location.origin||e.data?.channel!==channel)return;
     const isPreview=e.source===frame.contentWindow,isEditor=editFrame&&e.source===editFrame.contentWindow;
@@ -47,7 +47,7 @@ app.registerExtension({
     if(e.data.type==='error')caption.textContent=e.data.message;
    };
    window.addEventListener('message',listener);
-   this._worldReceive=value=>{payload=value;node.properties.world_viewer_payload=value;caption.textContent=value.revision?'Scene loaded with current inputs. Edit → Save Work to commit updates.':'Assets loaded. Edit → Save Work to commit the scene.';initialize(frame);if(editFrame)initialize(editFrame,true);};
+   this._worldReceive=value=>{payload=value;node.properties.world_viewer_payload=value;caption.textContent=value.revision?'Scene loaded with current inputs. Edit in Interface → Save Work to commit updates.':'Assets loaded. Edit in Interface → Save Work to commit the scene.';initialize(frame);if(editFrame)initialize(editFrame,true);};
    let restoreEpoch=0;
    this._worldRestore=async()=>{
     const epoch=++restoreEpoch;

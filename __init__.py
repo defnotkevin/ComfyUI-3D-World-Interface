@@ -12,9 +12,13 @@ UI=Path(__file__).parent/'ui'
 
 def store():return Store(Path(folder_paths.get_output_directory())/'world_viewer')
 
+DEMO_FILES={f'world_viewer_demo/demo_{i}.glb':Path(__file__).parent/'example_workflows'/f'demo_{i}.glb' for i in range(1,5)}
+
 def input_file(name):
     root=Path(folder_paths.get_input_directory()).resolve()
     p=(root/name).resolve()
+    if name in DEMO_FILES and not p.exists():
+        return DEMO_FILES[name]
     if not p.is_relative_to(root) or p.suffix.lower()!='.glb' or not p.is_file():
         raise ValueError('Choose a GLB inside ComfyUI/input.')
     if p.stat().st_size>MAX_GLB:raise ValueError('Asset exceeds 256 MiB.')
@@ -24,7 +28,7 @@ class LoadWorldAsset:
     @classmethod
     def INPUT_TYPES(cls):
         root=Path(folder_paths.get_input_directory())
-        names=sorted(str(p.relative_to(root)).replace('\\','/') for p in root.rglob('*.glb'))
+        names=sorted(set(str(p.relative_to(root)).replace('\\','/') for p in root.rglob('*.glb')) | set(DEMO_FILES))
         return {'required':{'file':(names,), 'name':('STRING',{'default':'Imported asset'})}}
     RETURN_TYPES=('WORLD_ASSET',)
     FUNCTION='load'
