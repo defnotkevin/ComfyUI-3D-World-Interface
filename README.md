@@ -3,7 +3,8 @@
 ## Video Tutorial
 
 [Set up Hunyuan Multiview and 3D World Interface in ComfyUI on RunPod](https://www.youtube.com/watch?v=DBkhDIWaYBw)
-(https://www.youtube.com/watch?v=DBkhDIWaYBw)
+
+`https://www.youtube.com/watch?v=DBkhDIWaYBw`
 
 ## Intro
 
